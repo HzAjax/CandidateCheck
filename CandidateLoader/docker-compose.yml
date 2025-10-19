@@ -1,0 +1,14 @@
+services:
+  loader:
+    build: .
+    container_name: loader
+    environment:
+      BASE_URL: http://gateway:8080
+    ports:
+      - "8085:8080"
+    networks: [verifyhub-net]
+    restart: unless-stopped
+
+networks:
+  verifyhub-net:
+    external: true
