@@ -1,6 +1,25 @@
 server:
   port: ${GATEWAY_PORT:8080}
 
+spring:
+  application:
+    name: ${APP_NAME:api-gateway}
+  cloud:
+    loadbalancer:
+      eager-load:
+        enabled: true
+        clients: verification-service
+    gateway:
+      discovery:
+        locator:
+          enabled: ${GATEWAY_DISCOVERY_ENABLED:true}
+
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: ${EUREKA_DEFAULT_ZONE:http://localhost:8761/eureka/}
+
 gateway:
   remote:
     verificationServiceId: ${VERIFICATION_SERVICE_ID:verification-service}
