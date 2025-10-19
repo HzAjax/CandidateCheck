@@ -5,12 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.volodin</groupId>
-    <artifactId>CandidateCheck</artifactId>
+    <artifactId>VerifyHub</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>VerifyHub</module>
-        <module>CandidateLoader</module>
+        <module>api-gateway</module>
+        <module>service-discovery</module>
+        <module>verification-service</module>
+        <module>wiremock-runner</module>
     </modules>
 
     <properties>

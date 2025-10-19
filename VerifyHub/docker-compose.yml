@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  discovery:
+    build:
+      context: ./service-discovery
+      dockerfile: Dockerfile
+    container_name: discovery
+    environment:
+      DISCOVERY_PORT: 8761
+      APP_NAME: service-discovery
+      EUREKA_REGISTER_WITH: "false"
+      EUREKA_FETCH_REGISTRY: "false"
+    restart: unless-stopped
+    networks: [verifyhub-net]
+
+  gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    environment:
+      GATEWAY_PORT: 8080
+      APP_NAME: api-gateway
+      GATEWAY_DISCOVERY_ENABLED: "true"
+      EUREKA_DEFAULT_ZONE: http://discovery:8761/eureka/
+      VERIFICATION_SERVICE_ID: verification-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - discovery
+    restart: unless-stopped
+    networks: [verifyhub-net]
+
+  verification:
+    build:
+      context: ./verification-service
+      dockerfile: Dockerfile
+    container_name: verification
+    environment:
+      VERIFICATION_PORT: 8082
+      APP_NAME: verification-service
+      EUREKA_DEFAULT_ZONE: http://discovery:8761/eureka/
+      EXT_BASE_URL: http://wiremock:9090
+      EXT_PASSPORT_PATH: /ext/passport-check
+      EXT_INN_PATH: /ext/inn-check
+      EXT_DL_PATH: /ext/dl-check
+    depends_on:
+      - discovery
+      - wiremock
+    restart: unless-stopped
+    networks: [verifyhub-net]
+
+  wiremock:
+    image: wiremock/wiremock:3.9.1
+    container_name: wiremock
+    command: ["--port","9090","--root-dir","/home/wiremock"]
+    volumes:
+      - ./wiremock:/home/wiremock:ro
+    restart: unless-stopped
+    networks: [verifyhub-net]
+
+networks:
+  verifyhub-net:
+    external: true
