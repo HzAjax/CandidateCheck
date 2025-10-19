@@ -1,0 +1,9 @@
+{
+  "request": { "method": "POST", "url": "/ext/passport-check" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "result": "OK", "service": "passport" },
+    "fixedDelayMilliseconds": 100
+  }
+}

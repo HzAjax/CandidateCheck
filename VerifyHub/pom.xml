@@ -12,6 +12,7 @@
         <module>api-gateway</module>
         <module>service-discovery</module>
         <module>verification-service</module>
+        <module>wiremock-runner</module>
     </modules>
 
     <properties>
