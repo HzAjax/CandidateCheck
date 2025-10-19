@@ -1,0 +1,9 @@
+{
+  "request": { "method": "POST", "url": "/ext/dl-check" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "result": "OK", "service": "drivers-license" },
+    "fixedDelayMilliseconds": 100
+  }
+}

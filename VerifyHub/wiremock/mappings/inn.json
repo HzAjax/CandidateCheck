@@ -1,0 +1,9 @@
+{
+  "request": { "method": "POST", "url": "/ext/inn-check" },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": { "result": "OK", "service": "inn" },
+    "fixedDelayMilliseconds": 100
+  }
+}
