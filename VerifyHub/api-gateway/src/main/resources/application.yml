@@ -1,2 +1,6 @@
 server:
   port: ${GATEWAY_PORT:8080}
+
+gateway:
+  remote:
+    verificationServiceId: ${VERIFICATION_SERVICE_ID:verification-service}
